@@ -1,0 +1,35 @@
+volumes:
+  mysql: {}
+  mysql_backup: {}
+
+services:
+  php_pandacode:
+    build:
+      context: .
+      dockerfile: ./compose/local/php/Dockerfile
+    image: pandacode_local_php
+    container_name: pandacode_local_php
+    depends_on:
+      - mysql_pandacode
+    volumes:
+      - .:/app:z
+    env_file:
+      - ./.envs/.local/php.conf
+      - ./.envs/.local/mysql.conf
+    ports:
+      - '8000:80'
+    # command: /start
+
+  mysql_pandacode:
+    build:
+      context: .
+      dockerfile: ./compose/production/mysql/Dockerfile
+    image: mysql:8.0
+    container_name: mysql_pandacode
+    volumes:
+      - mysql:/var/lib/mysql
+      - mysql_backup:/backups
+    ports:
+      - 3309:3306
+    env_file:
+      - ./.envs/.local/mysql.conf
