@@ -1,0 +1,3 @@
+[submodule "web/app/plugins/advanced-custom-fields-pro"]
+	path = web/app/plugins/advanced-custom-fields-pro
+	url = https://github.com/pronamic/advanced-custom-fields-pro
